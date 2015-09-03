@@ -1,0 +1,161 @@
+<html>
+	<head>
+		<title>Clock Meter</title>
+ 		<link href='http://fonts.googleapis.com/css?family=Open+Sans|PT+Serif|Permanent+Marker' rel='stylesheet' type='text/css'>
+  		<style>
+	  		html {
+	  			font-family:'Open Sans', sans-serif;
+	  		}
+  			h2 {
+  				text-align:center;
+  				font-size: 40px;
+  				color: #fff;
+  				text-shadow: 2px 2px 2px #000, 2px 2px 6px white;
+  			}
+  			h4 {
+  				text-align: center;
+  			}
+  			body {
+  				background: skyblue;
+  			}
+  			.container {
+  				margin:auto;
+  				width: 400px;
+  				height: 230px;
+  				background-color: #FF889F;
+  				-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+				-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+				box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+				border-radius: 10px 10px 10px 10px;
+				-moz-border-radius: 10px 10px 10px 10px;
+				-webkit-border-radius: 10px 10px 10px 10px;
+				border: 0px solid #000000;
+  			}
+  			#today {
+  				font-size: 25px !important;
+  				color: #fff; 
+  				text-shadow: 2px 2px 2px #000, 2px 2px 6px white;
+  				padding-top: 15px;
+    			margin-bottom: -5px;
+  			}
+  			.inner-container {
+  				font-size: 30px;
+  				color: #fff;
+  				text-shadow: 2px 2px 2px #000, 2px 2px 6px white;
+  				width: 50%;
+  				margin: 0 auto;
+  				text-align:center;
+  			}
+  			#inside {
+  				display: inline-block;
+
+  				padding: 10px;
+  			}
+  			.meter-container {
+  				width: 80%;
+  				margin: 0 auto;
+  				text-align: center;
+
+  			}
+  			.meter-container div {
+  				padding-top: 10px;
+  				padding-bottom: 10px;
+  			}
+
+  			meter {
+  				width: 90%;
+  			}
+  			meter::-webkit-meter-optimum-value {
+			  box-shadow: 0 5px 5px -5px #999 inset;
+			  background-image: linear-gradient(
+			    90deg, 
+			    #2594C3 0%, 
+			    #2594C3 100%
+			  );}
+  		</style>
+	</head>
+	<body>
+
+			<h2>Clock Meter</h2>
+			<div class="container">
+				<div>
+					<h2 id="today"></h2>
+				</div>
+				<div class="inner-container">
+					<div id="inside">
+					</div>
+					<div id="inside">
+					</div>
+					<div id="inside">
+					</div>
+				</div>
+				<div class="meter-container">
+					<div>
+						<meter id="hours" max="12"></meter>
+					</div>
+					<div>
+						<meter id="minutes" max="60"></meter>
+					</div>
+					<div>
+						<meter id="seconds" max="60"></meter>
+					</div>
+				</div>
+			</div>
+			<h4>*Note this only works with browsers with HTML5 compatibility</h4>
+	</body>
+
+	<script>
+
+		var d, date, hours, mins, secs;
+		var hoursMeter = document.getElementById("hours");
+		var minutesMeter = document.getElementById("minutes");
+		var secondsMeter = document.getElementById("seconds");
+
+		function time() {
+		  date = new Date();
+		  hours = date.getHours();
+		  if (hours > 12) {
+		    hours = hours - 12;
+		  }
+		  if (hours < 10) {
+		    hours = "0" + hours;
+		  }
+		  mins = date.getMinutes();
+		  if (mins < 10) {
+		    mins = "0" + mins;
+		  }
+		  secs = date.getSeconds();
+		  if (secs < 10) {
+		    secs = "0" + secs;
+		  }
+		}
+
+		function setTime() {
+		  inside[0].innerHTML = hours;
+		  inside[1].innerHTML = mins;
+		  inside[2].innerHTML = secs;
+		}
+		
+		function setMeter() {
+			hoursMeter.value = inside[0].innerHTML;
+			minutesMeter.value = inside[1].innerHTML;
+			secondsMeter.value = inside[2].innerHTML;
+		}
+		function setDate() {
+			d = new Date();
+			document.getElementById("today").innerHTML = d.toDateString();
+		}
+
+		time();
+		setTime();
+		setMeter();
+		setDate();
+		setInterval(function() {
+		  time();
+		  setTime();
+		  setMeter();
+		  setDate();
+		}, 1000);
+	</script>
+
+</html>
